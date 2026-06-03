@@ -1,0 +1,11 @@
+pandas==2.2.3
+numpy==1.26.4
+scikit-learn==1.5.2
+psycopg2-binary==2.9.9
+finnhub-python==2.4.20
+streamlit==1.40.2
+plotly==5.24.1
+joblib==1.4.2
+python-dotenv==1.0.1
+yfinance==0.2.43
+xgboost==2.0.3
