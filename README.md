@@ -1,4 +1,4 @@
-# 📈 AI-Powered Stock Market Analytics Pipeline
+# ML-Powered Stock Market Analytics Pipeline
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Airflow](https://img.shields.io/badge/Airflow-2.10-017CEE?style=for-the-badge&logo=apacheairflow&logoColor=white)](https://airflow.apache.org)
@@ -6,13 +6,13 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.40-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 [![PostgreSQL](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
 
-> A production-grade stock market analytics platform that seamlessly orchestrates data ingestion, processing, and machine learning pipelines. 
+> A production-grade stock market analytics platform that seamlessly orchestrates data ingestion, processing, and machine learning pipelines.
 
 This platform automates the extraction of financial data from the Finnhub API, stores it securely in Supabase PostgreSQL, and orchestrates ETL workflows using Apache Airflow. It features advanced machine learning models for price prediction and anomaly detection, presenting actionable insights through a rich Streamlit dashboard.
 
 ---
 
-## 🏗 Architecture Overview
+## Architecture Overview
 
 ```mermaid
 graph LR
@@ -32,13 +32,9 @@ graph LR
     subgraph Presentation
         C -->|Query Insights| H[Streamlit Dashboard]
     end
-    
-    style C fill:#3ECF8E,stroke:#333,stroke-width:2px,color:#fff
-    style H fill:#FF4B4B,stroke:#333,stroke-width:2px,color:#fff
-    style B fill:#017CEE,stroke:#333,stroke-width:2px,color:#fff
 ```
 
-## ✨ Key Features
+## Key Features
 
 - **Automated Data Pipelines**: Robust daily ETL jobs scheduled after market close.
 - **Historical Data Backfill**: Readily available 1-year OHLCV data spanning 7 major tech stocks.
@@ -47,27 +43,28 @@ graph LR
 - **Market Anomaly Detection**: Proactive identification of unusual market behaviors via Isolation Forests.
 - **Interactive Visualization**: Comprehensive 5-page Streamlit dashboard featuring interactive Plotly charts.
 
-## 📊 Tracked Assets
+## Tracked Assets
 
 The pipeline actively monitors the following high-cap technology stocks:
 
-| Ticker | Company Name | Sector |
-|--------|--------------|--------|
-| **AAPL** | Apple Inc. | Consumer Electronics |
-| **MSFT** | Microsoft Corp. | Software |
-| **NVDA** | NVIDIA Corp. | Semiconductors |
-| **AMZN** | Amazon.com Inc. | E-Commerce |
-| **GOOGL**| Alphabet Inc. | Internet Content |
-| **META** | Meta Platforms | Internet Content |
-| **TSLA** | Tesla Inc. | Auto Manufacturers |
+| Ticker    | Company Name    | Sector               |
+| --------- | --------------- | -------------------- |
+| **AAPL**  | Apple Inc.      | Consumer Electronics |
+| **MSFT**  | Microsoft Corp. | Software             |
+| **NVDA**  | NVIDIA Corp.    | Semiconductors       |
+| **AMZN**  | Amazon.com Inc. | E-Commerce           |
+| **GOOGL** | Alphabet Inc.   | Internet Content     |
+| **META**  | Meta Platforms  | Internet Content     |
+| **TSLA**  | Tesla Inc.      | Auto Manufacturers   |
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
 Ensure you have the following installed and configured before proceeding:
+
 - [Docker & Docker Compose](https://www.docker.com/products/docker-desktop/)
 - [Finnhub API Key](https://finnhub.io/) (Free tier is sufficient)
 - [Supabase Project](https://supabase.com/) (With PostgreSQL database initialized)
@@ -75,23 +72,27 @@ Ensure you have the following installed and configured before proceeding:
 ### Installation & Setup
 
 **1. Clone the Repository**
+
 ```bash
 git clone https://github.com/NishanthPechimuthu/-stock-market-analytics-pipeline.git
 cd stock-market-analytics-pipeline
 ```
 
 **2. Configure Environment Variables**
+
 ```bash
 cp .env.example .env
 # Open .env and securely add your Finnhub and Supabase credentials
 ```
 
 **3. Initialize Volumes**
+
 ```bash
 mkdir -p logs plugins models
 ```
 
 **4. Deploy Infrastructure**
+
 ```bash
 docker compose up -d --build
 ```
@@ -104,47 +105,53 @@ docker compose up -d --build
 
 ---
 
-## ⚙️ Operational Workflows
+## Operational Workflows
 
 ### 1. Data Backfill
+
 To populate the database with historical data:
+
 1. Navigate to the **Airflow UI** > **DAGs**
 2. Unpause the `historical_backfill_dag`
 3. Trigger it manually and await completion (~5 mins).
 
 ### 2. Model Training
+
 To train the predictive models:
+
 1. Unpause the `weekly_model_training_dag`
 2. Trigger the pipeline. Artifacts will be serialized to the `models/` directory.
 
 ### 3. Automated Daily Operations
+
 To enable ongoing daily ingestion:
+
 1. Unpause the `daily_market_pipeline_dag`.
 2. The pipeline is scheduled to run autonomously Monday–Friday at 10 PM UTC.
 
 ---
 
-## 🗄️ Database Schema Mapping
+## Database Schema Mapping
 
-| Table Name | Description |
-|------------|-------------|
-| `stocks` | Reference table for stock symbols and metadata. |
-| `raw_stock_prices` | Core table containing raw OHLCV time-series data. |
-| `stock_features` | Processed technical indicators and rolling metrics. |
-| `predictions` | ML-generated next-day closing price forecasts. |
-| `anomalies` | Detected market outliers flagged by the Isolation Forest. |
+| Table Name         | Description                                               |
+| ------------------ | --------------------------------------------------------- |
+| `stocks`           | Reference table for stock symbols and metadata.           |
+| `raw_stock_prices` | Core table containing raw OHLCV time-series data.         |
+| `stock_features`   | Processed technical indicators and rolling metrics.       |
+| `predictions`      | ML-generated next-day closing price forecasts.            |
+| `anomalies`        | Detected market outliers flagged by the Isolation Forest. |
 
-## 🧠 Machine Learning Engine
+## Machine Learning Engine
 
-| Algorithm | Role | Primary Metric Targets |
-|-----------|------|------------------------|
-| **Linear Regression** | Baseline Prediction | RMSE, MAE, R² |
-| **Random Forest** | Advanced Forecasting | RMSE, MAE, R² |
-| **Isolation Forest** | Anomaly Detection | Contamination / Outlier Score |
+| Algorithm             | Role                 | Primary Metric Targets        |
+| --------------------- | -------------------- | ----------------------------- |
+| **Linear Regression** | Baseline Prediction  | RMSE, MAE, R²                 |
+| **Random Forest**     | Advanced Forecasting | RMSE, MAE, R²                 |
+| **Isolation Forest**  | Anomaly Detection    | Contamination / Outlier Score |
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 ├── .env                    # Environment variables (excluded from VC)
@@ -169,6 +176,6 @@ To enable ongoing daily ingestion:
 └── plugins/                # Custom Airflow plugins
 ```
 
-## 📄 License
+## License
 
 This project is open-sourced under the MIT License. Developed for educational, research, and portfolio demonstration purposes.
