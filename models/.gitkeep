@@ -1,0 +1,2 @@
+# This directory stores trained model artifacts (.joblib files).
+# Models are saved by the weekly training DAG and loaded by the daily pipeline.
