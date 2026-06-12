@@ -16,22 +16,18 @@ This platform automates the extraction of financial data from the Finnhub API, s
 
 ```mermaid
 graph LR
-    subgraph Data Ingestion
         A[Finnhub API] -->|Extract| B[Airflow ETL]
-    end
-    subgraph Storage
+
         B -->|Load| C[(Supabase PostgreSQL)]
-    end
-    subgraph Processing & ML
+
         C -->|Raw Data| D[Feature Engineering]
         D -->|Train/Predict| E[ML Models]
         E -->|Store Predictions| C
         D -->|Detect| G[Anomaly Detection]
         G -->|Store Anomalies| C
-    end
-    subgraph Presentation
+
         C -->|Query Insights| H[Streamlit Dashboard]
-    end
+
 ```
 
 ## Key Features
