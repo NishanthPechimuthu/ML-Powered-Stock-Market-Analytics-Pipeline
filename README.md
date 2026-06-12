@@ -137,6 +137,8 @@ To enable ongoing daily ingestion:
 | `predictions`      | ML-generated next-day closing price forecasts.            |
 | `anomalies`        | Detected market outliers flagged by the Isolation Forest. |
 
+[View Schema](./supabase.db.md)
+
 ## Machine Learning Engine
 
 | Algorithm             | Role                 | Primary Metric Targets        |
